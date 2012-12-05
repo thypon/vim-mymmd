@@ -164,6 +164,27 @@ HtmlHiLink mkdLinkAttrib    Function
 
 HtmlHiLink mkdDelimiter     Delimiter
 
+" Maths highlighting (TeX)
+" Accepts either multimarkdown bracket notation or $ notation.
+" Allows use of literal dollars if they are escaped (\$). If you
+" want literal dollars without escaping, you'll have to comment out
+" the texinlinemaths line.
+syntax include syntax/tex.vim
+syn region mmddisplaymaths matchgroup=mkdMath start="\\\\\[" end="\\\\\]" contains=@texMathZoneGroup
+syn region texdisplaymaths matchgroup=mkdMath start="\$\$" end="\$\$" skip="\\\$" contains=@texMathZoneGroup
+syn region mmdinlinemaths matchgroup=mkdMath start="\\\\(" end="\\\\)" contains=@texMathZoneGroup
+" inline maths with $ ... $
+" start is a $ not preceded by another $        - \(\$\)\@<!\$
+" and not preceded by a \ (concat)              - \(\$\)\@<!\&\(\\\)\@<!\$
+" and not followed by another $                 - \$\(\$\)\@!
+" ending in a $ not preceded by a \             - \((\$\)\@<!\$
+" skipping any \$                               - \\\$
+" see :help \@<! for more
+syn region texinlinemaths matchgroup=mkdMath start="\(\$\)\@<!\&\(\\\)\@<!\$\(\$\)\@!" end="\(\$\)\@<!\$" skip="\\\$" contains=@texMathZoneGroup
+" restriction is that you can't have something like \$$maths$ - there
+" has to be a space after all of the \$ (literal $)
+HtmlHiLink mkdMath SpecialComment
+
 let b:current_syntax = "mmd"
 
 delcommand HtmlHiLink
