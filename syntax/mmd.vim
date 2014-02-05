@@ -172,6 +172,7 @@ HtmlHiLink mkdDelimiter     Delimiter
 syntax include syntax/tex.vim
 syn region mmddisplaymaths matchgroup=mkdMath start="\\\\\[" end="\\\\\]" contains=@texMathZoneGroup
 syn region texdisplaymaths matchgroup=mkdMath start="\$\$" end="\$\$" skip="\\\$" contains=@texMathZoneGroup
+syn region texdisplaymaths matchgroup=mkdMath start='\\begin{\z(.\{-\}\)}' end='\\end{\z1}' contains=@texMathZoneGroup
 syn region mmdinlinemaths matchgroup=mkdMath start="\\\\(" end="\\\\)" contains=@texMathZoneGroup
 " inline maths with $ ... $
 " start is a $ not preceded by another $        - \(\$\)\@<!\$
@@ -183,7 +184,10 @@ syn region mmdinlinemaths matchgroup=mkdMath start="\\\\(" end="\\\\)" contains=
 syn region texinlinemaths matchgroup=mkdMath start="\(\$\)\@<!\&\(\\\)\@<!\$\(\$\)\@!" end="\(\$\)\@<!\$" skip="\\\$" contains=@texMathZoneGroup
 " restriction is that you can't have something like \$$maths$ - there
 " has to be a space after all of the \$ (literal $)
-HtmlHiLink mkdMath SpecialComment
+HtmlHiLink mkdMath	    SpecialComment
+HtmlHiLink mmddisplaymaths  mkdMath
+HtmlHiLink texdisplaymaths  mkdMath
+HtmlHiLink mmdinlinemaths   mkdMath
 
 let b:current_syntax = "mmd"
 
