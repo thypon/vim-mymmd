@@ -91,7 +91,7 @@ syn match  mkdRule      /^\s*-\{3,}$/
 syn match  mkdRule      /^\s*\*\{3,5}$/
 syn match  mkdListItem  "^\s*[-*+]\s\+"
 syn match  mkdListItem  "^\s*\d\+\.\s\+"
-syn match  mkdCode      /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
+syn match  mkdCode      /^\s*\n\%(\%(\s\{4,}\|\t\+\)\%(\%(\*\|[0-9]\+\.\)\s\+\)\@!.*\n\)\+/
 syn match  mkdLineBreak /  \+$/
 syn region mkdCode      start=/\\\@<!`/                   end=/\\\@<!`/
 syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
