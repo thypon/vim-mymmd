@@ -91,7 +91,7 @@ syn match  mkdRule      /^\s*-\{3,}$/
 syn match  mkdRule      /^\s*\*\{3,5}$/
 syn match  mkdListItem  "^\s*[-*+]\s\+"
 syn match  mkdListItem  "^\s*\d\+\.\s\+"
-syn match  mkdCode      /^\s*\n\%(\%(\s\{4,}\|\t\+\)\%(\%(\*\|[0-9]\+\.\)\s\+\)\@!.*\n\)\+/
+syn match  mkdCode      /^\s*\n\%(\%(\s\{4,}\|\t\+\)\%(\%([-*+]\|[0-9]\+\.\)\s\+\)\@!\S.*\n\)\+/
 syn match  mkdLineBreak /  \+$/
 syn region mkdCode      start=/\\\@<!`/                   end=/\\\@<!`/
 syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
@@ -117,20 +117,20 @@ syn region mkdHeaderFold
     \ start="^\s*\z(#\+\)"
     \ skip="^\s*\z1#\+"
     \ end="^\(\s*#\)\@="
-    \ fold contains=TOP
+    \ fold transparent contains=TOP
 
 " fold region for references
 syn region mkdReferenceFold
     \ start="^<!--\z(\S*\)-->"
     \ end="^<!--END\z1-->"
-    \ fold contains=TOP
+    \ fold transparent contains=TOP
 
 " fold region for lists
 syn region mkdListFold
     \ start="^\z(\s*\)\*\z(\s*\)"
     \ skip="^\z1 \z2\s*[^#]"
     \ end="^\(.\)\@="
-    \ fold contains=TOP
+    \ fold transparent contains=TOP
 
 " Maths highlighting (TeX)
 " Accepts either multimarkdown bracket notation or $ notation.
