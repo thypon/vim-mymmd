@@ -159,8 +159,6 @@ syn match mkdEqRef	'{\zs.\{-\}\ze}'    contained
 
 
 syn sync fromstart
-setlocal foldmethod=syntax
-
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
