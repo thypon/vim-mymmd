@@ -91,12 +91,12 @@ syn match  mkdRule      /^\s*-\{3,}$/
 syn match  mkdRule      /^\s*\*\{3,5}$/
 syn match  mkdListItem  "^\s*[-*+]\s\+"
 syn match  mkdListItem  "^\s*\d\+\.\s\+"
-syn match  mkdCode      /^\s*\n\%(\%(\s\{4,}\|\t\+\)\%(\%([-*+]\|[0-9]\+\.\)\s\+\)\@!\S.*\n\)\+/
+syn match  mkdBlockquote /^\%(\s*>\)\+/
+"syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineBreak,mkdLineContinue,@Spell
+syn match  mkdCode      /^\%(\s\|>\)*\n\%(\s*>\)*\%(\%(\s\{4,}\|\t\+\)\%(\%([-*+]\|[0-9]\+\.\)\s\+\)\@!\S.*\n\)\+/ contains=mkdBlockquote
 syn match  mkdLineBreak /  \+$/
 syn region mkdCode      start=/\\\@<!`/                   end=/\\\@<!`/
 syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
-"syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineBreak,mkdLineContinue,@Spell
-syn match mkdBlockquote /^\%(\s*>\)\+/
 syn region mkdCode      start="<pre[^>]*>"         end="</pre>"
 syn region mkdCode      start="<code[^>]*>"        end="</code>"
 
