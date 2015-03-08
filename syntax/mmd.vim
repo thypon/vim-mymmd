@@ -126,11 +126,11 @@ syn region mkdReferenceFold
     \ fold transparent contains=TOP
 
 " fold region for lists
-syn region mkdListFold
-    \ start="^\z(\s*\)\*\z(\s*\)"
-    \ skip="^\z1 \z2\s*[^#]"
-    \ end="^\(.\)\@="
-    \ fold transparent contains=TOP
+"syn region mkdListFold
+"    \ start="^\z(\s*\)\*\z(\s*\)"
+"    \ skip="^\z1 \z2\s*[^#]"
+"    \ end="^\(.\)\@="
+"    \ fold transparent contains=TOP
 
 " Maths highlighting (TeX)
 " Accepts either multimarkdown bracket notation or $ notation.
