@@ -95,8 +95,8 @@ syn match  mkdBlockquote /^\%(\s*>\)\+/
 "syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineBreak,mkdLineContinue,@Spell
 syn match  mkdCode      /^\%(\s\|>\)*\n\%(\s*>\)*\%(\%(\s\{4,}\|\t\+\)\%(\%([-*+]\|[0-9]\+\.\)\s\+\)\@!\S.*\n\)\+/ contains=mkdBlockquote
 syn match  mkdLineBreak /  \+$/
-syn region mkdCode      start=/\\\@<!`/                   end=/\\\@<!`/
-syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
+syn region mkdCode      start=/\\\@<!`/                   end=/\\\@<!`/ oneline
+syn region mkdCode      start=/\v^\s*\z(`{3,})`@!/          end=/^\s*\z1\s*$/
 syn region mkdCode      start="<pre[^>]*>"         end="</pre>"
 syn region mkdCode      start="<code[^>]*>"        end="</code>"
 
