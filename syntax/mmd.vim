@@ -12,25 +12,18 @@
 " TODO: 	Handle stuff contained within stuff (e.g. headings within blockquotes)
 
 
-" Read the HTML syntax to start with
-if version < 600
-  so <sfile>:p:h/html.vim
-else
-  runtime! syntax/html.vim
-  unlet b:current_syntax
-endif
-
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax")
+if exists("b:current_syntax")
   finish
 endif
 
-" don't use standard HiLink, it will not work with included syntax files
-if version < 508
-  command! -nargs=+ HtmlHiLink hi link <args>
+" Read Jinja2 syntax
+if exists( 'g:markdown_jinja' ) && g:markdown_jinja
+    runtime! syntax/jinja.vim
+    unlet b:current_syntax
 else
-  command! -nargs=+ HtmlHiLink hi def link <args>
+" Just read the plain HTML syntax to start with
+  runtime! syntax/html.vim
+  unlet b:current_syntax
 endif
 
 syn spell toplevel
@@ -41,7 +34,8 @@ syn sync linebreaks=1
 syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\*\@!/     end=/\\\@<!\*\@<!\*\*\*\@!\($\|\A\)\@=/   contains=@Spell,htmlItalic
 syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\@!/       end=/\\\@<!\*\@<!\*\*\@!\($\|\A\)\@=/      contains=htmlBold,@Spell
 syn region htmlBold     start=/\\\@<!\(^\|\A\)\@=_\@<!___\@!/         end=/\\\@<!_\@<!___\@!\($\|\A\)\@=/       contains=htmlItalic,@Spell
-syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=_\@<!__\@!/          end=/\\\@<!_\@<!__\@!\($\|\A\)\@=/        contains=htmlBold,@Spell
+"syn region htmlItalic   start=/\\\@<!\(^\|\A\)\@=_\@<!__\@!/          end=/\\\@<!_\@<!__\@!\($\|\A\)\@=/        contains=htmlBold,@Spell
+syn region htmlItalic   start=/\v\s+__@!/ end=/\v\w@<=_(\s+|$)/        contains=htmlBold,@Spell
 
 syn match mkdTableCaption     "|\n\zs\[[^]]*\]$"
 syn match mkdTableCaption     "^\[[^]]*\]\ze\n|"
@@ -161,43 +155,40 @@ syn match mkdEqRef	'{\zs.\{-\}\ze}'    contained
 syn sync fromstart
 
 "highlighting for Markdown groups
-HtmlHiLink mkdString	    String
-HtmlHiLink mkdCode          String
-HtmlHiLink mkdBlockquote    Comment
-HtmlHiLink mkdLineContinue  Comment
-HtmlHiLink mkdListItem      Identifier
-HtmlHiLink mkdRule          Identifier
-HtmlHiLink mkdLineBreak     Todo
-HtmlHiLink mkdLink          htmlLink
-HtmlHiLink mkdURL           htmlString
-HtmlHiLink mkdInlineURL     htmlLink
-HtmlHiLink mkdID            Identifier
-HtmlHiLink mkdLinkDef       mkdID
-HtmlHiLink mkdLinkDefTarget mkdURL
-HtmlHiLink mkdLinkTitle     htmlString
-HtmlHiLink mmdFootnoteMarker    Constant
-HtmlHiLink mmdFootnoteIdentifier    Constant
-HtmlHiLink mmdFootnoteText     String
+hi def link mkdString	    String
+hi def link mkdCode          String
+hi def link mkdBlockquote    Comment
+hi def link mkdLineContinue  Comment
+hi def link mkdListItem      Identifier
+hi def link mkdRule          Identifier
+hi def link mkdLineBreak     Todo
+hi def link mkdLink          htmlLink
+hi def link mkdURL           htmlString
+hi def link mkdInlineURL     htmlLink
+hi def link mkdID            Identifier
+hi def link mkdLinkDef       mkdID
+hi def link mkdLinkDefTarget mkdURL
+hi def link mkdLinkTitle     htmlString
+hi def link mmdFootnoteMarker    Constant
+hi def link mmdFootnoteIdentifier    Constant
+hi def link mmdFootnoteText     String
 
-HtmlHiLink mkdMetadataKey   Function
-HtmlHiLink mkdTableCaption  String
-HtmlHiLink mkdSourceDef     Statement
-HtmlHiLink mkdSource        String
-HtmlHiLink mkdLinkAttrib    Function
+hi def link mkdMetadataKey   Function
+hi def link mkdTableCaption  String
+hi def link mkdSourceDef     Statement
+hi def link mkdSource        String
+hi def link mkdLinkAttrib    Function
 
-HtmlHiLink mkdDelimiter     Delimiter
+hi def link mkdDelimiter     Delimiter
 
-HtmlHiLink mkdMath	    SpecialComment
-HtmlHiLink mmddisplaymaths  mkdMath
-HtmlHiLink texdisplaymaths  mkdMath
-HtmlHiLink texinlinemaths   mkdMath
-HtmlHiLink mmdinlinemaths   mkdMath
+hi def link mkdMath	    SpecialComment
+hi def link mmddisplaymaths  mkdMath
+hi def link texdisplaymaths  mkdMath
+hi def link texinlinemaths   mkdMath
+hi def link mmdinlinemaths   mkdMath
 
-HtmlHiLink mkdTeXCommand    Statement
-HtmlHiLink mkdEqRef	    SpecialComment
-
+hi def link mkdTeXCommand    Statement
+hi def link mkdEqRef	    SpecialComment
 
 let b:current_syntax = "mmd"
-
-delcommand HtmlHiLink
 " vim: ts=8
