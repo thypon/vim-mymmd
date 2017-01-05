@@ -4,7 +4,7 @@
 " URL:		http://www.jnicholasgeist.com
 " Version:	0.1
 " Last Change:  2011 July 05
-" Remark:	Derived from Ben Williams's Markdown plugin for vim 
+" Remark:	Derived from Ben Williams's Markdown plugin for vim
 "               (http://plasticboy.com/markdown-vim-mode/)
 " Remark:	Uses HTML syntax file
 " Remark:	I don't do anything with angle brackets (<>) because that would too easily
@@ -65,7 +65,7 @@ syn region mmdFootnoteText  start="^\s\{0,3\}\[^.\+\]:[ \t]" end="^$" contains=m
 "syn region mkdLinkTitle matchgroup=mkdDelimiter start=+'+     end=+'+  contained
 "syn region mkdLinkTitle matchgroup=mkdDelimiter start=+(+     end=+)+  contained
 
-syn region mkdReference start=/^\[[^]]*\]:/ end=/^$/ contains=mkdLinkDef,mkdLinkDefTarget,mkdLinkTitle,mkdLinkAttrib,mkdSourceDef,mkdSource,mmdFootnoteIdentifier,mmdFootnoteText  
+syn region mkdReference start=/^\[[^]]*\]:/ end=/^$/ contains=mkdLinkDef,mkdLinkDefTarget,mkdLinkTitle,mkdLinkAttrib,mkdSourceDef,mkdSource,mmdFootnoteIdentifier,mmdFootnoteText
 syn match  mkdLinkDef   /^\[[^^#]\S\+\]:/ nextgroup=mkdLinkDefTarget contained
 syn match  mkdLinkDefTarget /\s*\S\+:\S\+/   nextgroup=mkdLinkTitle contained
 syn match  mkdLinkTitle /"[^"]*"/ nextgroup=mkdLinkAttrib contained
@@ -104,7 +104,7 @@ syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contain
 syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
 syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
-
+syn region mkdComment 	start="^\s*--"			end="$" contains=@Spell
 
 " fold region for headings
 syn region mkdHeaderFold
@@ -159,6 +159,7 @@ hi def link mkdString	    String
 hi def link mkdCode          String
 hi def link mkdBlockquote    Comment
 hi def link mkdLineContinue  Comment
+hi def link mkdComment	     Comment
 hi def link mkdListItem      Identifier
 hi def link mkdRule          Identifier
 hi def link mkdLineBreak     Todo
